@@ -7,6 +7,13 @@
     "url": "https://github.com/networld-to/vue-ap-timeline/issues"
   },
   "license": "MIT",
+  "keywords": [
+    "vue",
+    "vuejs",
+    "vue.js",
+    "ActivityPub",
+    "federated"
+  ],
   "files": [
     "dist"
   ],

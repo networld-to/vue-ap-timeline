@@ -250,7 +250,7 @@ export default defineComponent({
           <p class="text-center">
             <a :href="parentPost.account.url" target="_blank">
               Visit Profile
-              <font-awesome-icon icon="fa-solid fa-angles-right" />
+              <font-awesome-icon :icon="faAnglesRight" />
             </a>
           </p>
         </div>

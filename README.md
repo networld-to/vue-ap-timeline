@@ -5,13 +5,13 @@
 Integrate your Fediverse timeline into your Vue 3 with Bootstrap 5 application.
 Currently, tested with [Mastodon](https://joinmastodon.org).
 
-![Dark and light themed timeline](./screenshots/dark-and-light-demo.png)
+![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-and-light-demo.png)
 
 The picture below shows two timelines for different users with a different
 style and the profile dialog. The profile dialog can be opened when clicking
 on the Fediverse handle in the quoted parent post.
 
-![Two different timelines with profile dialog open](./screenshots/two-different-timelines-with-profile-dialog.png)
+![Two different timelines with profile dialog open](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/two-different-timelines-with-profile-dialog.png)
 
 Integrate a dark or light themed timeline into your own website.
 
@@ -20,7 +20,7 @@ Integrate a dark or light themed timeline into your own website.
 Add the Vue ActivityPub Timeline to your Vue 3 project.
 
 ```bash
-$ yarn add vue-ap-timeline
+$ yarn add @networld-to/vue-ap-timeline
 
 # Add the following dependencies
 $ yarn add bootstrap@5.3.0-alpha1 @popperjs/core
@@ -34,13 +34,12 @@ Add the following to your main.ts file.
 ```ts
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
-import VueApTimeline from 'vue-ap-timeline';
-import 'vue-ap-timeline/dist/style.css'
+import VueApTimeline from '@networld-to/vue-ap-timeline';
+import '@networld-to/vue-ap-timeline/dist/style.css'
 
 var app = createApp(App)
 app.use(VueApTimeline)
 app.mount('#app')
-
 ```
 
 Example how to include a dark and light themed timeline side by side.
