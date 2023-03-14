@@ -12,11 +12,30 @@ export default defineConfig({
       fileName: (format) => `vue-ap-timeline.${format}.js`,
     },
     rollupOptions: {
-      external: ['vue', 'axios'],
+      external: [
+        'vue',
+        'axios',
+        '@fortawesome/fontawesome-svg-core',
+        '@fortawesome/free-brands-svg-icons',
+        '@fortawesome/free-regular-svg-icons',
+        '@fortawesome/free-solid-svg-icons',
+        '@fortawesome/vue-fontawesome',
+        'bootstrap',
+      ],
       output: {
         globals: {
           vue: 'Vue',
+          bootstrap: 'bootstrap',
           axios: 'axios',
+          '@fortawesome/fontawesome-svg-core':
+            '@fortawesome/fontawesome-svg-core',
+          'fortawesome/free-brands-svg-icons':
+            '@fortawesome/fontawesome-svg-core',
+          '@fortawesome/free-regular-svg-icons':
+            '@fortawesome/free-regular-svg-icons',
+          '@fortawesome/free-solid-svg-icons':
+            '@fortawesome/free-solid-svg-icons',
+          '@fortawesome/vue-fontawesome': '@fortawesome/vue-fontawesome',
         },
         exports: 'named',
         sourcemapExcludeSources: true,
