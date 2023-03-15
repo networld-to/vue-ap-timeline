@@ -340,8 +340,8 @@ export default defineComponent({
           :key="index"
         >
           <a :href="media.url" target="_blank">
-            <img :src="media.url" class="" :alt="media.description" v-if="media.type == 'image'"/>
-            <img :src="media.preview_url" class="" :alt="media.description" v-if="media.type == 'video'"/>
+            <img :src="media.url" class="d-block w-100" :alt="media.description" v-if="media.type == 'image'"/>
+            <img :src="media.preview_url" class="d-block w-100" :alt="media.description" v-if="media.type == 'video'"/>
           </a>
         </div>
       </div>
@@ -350,6 +350,7 @@ export default defineComponent({
         type="button"
         :data-bs-target="'#carousel-' + orgPost.id"
         data-bs-slide="prev"
+        v-if="orgPost.media_attachments.length > 1"
       >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
@@ -359,6 +360,7 @@ export default defineComponent({
         type="button"
         :data-bs-target="'#carousel-' + orgPost.id"
         data-bs-slide="next"
+        v-if="orgPost.media_attachments.length > 1"
       >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
@@ -632,15 +634,15 @@ a {
 
 /* BEGIN: Multimedia */
 .carousel {
-  max-height: 650px;
-  text-align: center;
+  max-height: 400px;
+  margin-bottom: 25px;
 }
 
 .carousel a img {
   max-height: 400px;
   width: cover;
   object-fit: cover;
-  padding-bottom: 20px;
+  margin-bottom: 25px;
 }
 /* END: Multimedia */
 
