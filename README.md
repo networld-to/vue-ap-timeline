@@ -1,5 +1,7 @@
 # Vue Component Library for ActivityPub Timelines
 
+[![NPM](https://nodei.co/npm/@networld-to/vue-ap-timeline.png?compact=true)](https://npmjs.org/package/@networld-to/vue-ap-timeline)
+
 Integrate your Fediverse timeline into your Vue 3 with Bootstrap 5 application.
 Currently, tested with [Mastodon](https://joinmastodon.org).
 
