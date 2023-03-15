@@ -297,7 +297,8 @@ export default defineComponent({
             Followers
           </p>
           <p v-html="parentPost.account.note"></p>
-          <dl v-for="(field, index) in parentPost.account.fields" :key="index">
+          <p><br/></p>
+          <dl v-for="(field, index) in parentPost.account.fields" :key="index" :class="{ 'verified-box': field.verified_at }">
             <dt v-html="formatContent(field.name,parentPost.account.emojis) "></dt>
             <dd class="profile-field-value">
               <span v-if="field.verified_at">
@@ -631,13 +632,21 @@ a {
 /* END: Profile Header */
 
 /* BEGIN: Profile Dialog */
-.verified-badge {
-  color: var(--verified-badge);
-  margin-right: 5px;
+
+.verified-box {
+  padding: 10px 5px 5px 10px;
+  border: 1px solid #006400;
+  background-color: rgba(144, 238, 144, 0.05);
+  border-radius: 15px;
 }
 
 .profile-field-value {
   margin-left: 10px;
+}
+
+.verified-badge {
+  color: var(--verified-badge);
+  margin-right: 5px;
 }
 /* END: Profile Dialog */
 
