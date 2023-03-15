@@ -90,6 +90,8 @@ export default defineComponent({
   --post-box-shadow-1: rgba(50, 50, 93, 0.9);
   --post-box-shadow-2: rgba(0, 0, 0, 0.07);
   --verified-badge: green;
+  --thread-original-post-bg: #313543;
+  --thread-original-post-box-shadow: black;
 }
 
 [data-bs-theme='light'] {
@@ -104,6 +106,8 @@ export default defineComponent({
   --post-box-shadow-1: rgba(50, 50, 93, 0.9);
   --post-box-shadow-2: rgba(0, 0, 0, 0.07);
   --verified-badge: darkgreen;
+  --thread-original-post-bg: #EEE;
+  --thread-original-post-box-shadow: gray;
 }
 
 .spin-container {

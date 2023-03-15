@@ -1,8 +1,11 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { format } from 'date-fns';
+
 import { getPost } from '../services/ActivityPub';
+import { formatContent, formatDate, formatName } from '../services/Utility';
+
 import PostThread from './PostThread.vue';
+import Profile from './Profile.vue';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -12,7 +15,6 @@ import {
   faAnglesRight,
   faReply,
   faComments,
-  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default defineComponent({
@@ -34,11 +36,10 @@ export default defineComponent({
       faAnglesRight: faAnglesRight,
       faReply: faReply,
       faComments: faComments,
-      faCheck: faCheck,
       parentPost: {
         id: '',
         content: '',
-        emojis: {},
+        emojis: [{}],
         account: {
           acct: '',
           avatar_static: '',
@@ -68,6 +69,7 @@ export default defineComponent({
   components: {
     FontAwesomeIcon,
     PostThread,
+    Profile,
   },
   beforeMount() {
     // If the post is a boost aka. reblog set the orgPost variable reblog, otherwise keep the root post.
@@ -91,33 +93,9 @@ export default defineComponent({
     }
   },
   methods: {
-    formatDate(strDate: string) {
-      return format(new Date(strDate), 'MMM do, yyyy');
-    },
-    toPlaintext(structuredText: string) {
-      return structuredText.replace(/(<([^>]+)>)/gi, '');
-    },
-    formatName(structuredText: string, alternativeName: string, account: any) {
-      if (structuredText == null || structuredText == '') {
-        return alternativeName;
-      }
-      for (var idx in account.emojis) {
-        structuredText = structuredText.replace(
-          `:${account.emojis[idx].shortcode}:`,
-          `<img src='${account.emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
-        );
-      }
-      return structuredText;
-    },
-    formatContent(content: any, emojis: any) {
-      for (var idx in emojis) {
-        content = content.replace(
-          `:${emojis[idx].shortcode}:`,
-          `<img src='${emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
-        );
-      }
-      return content;
-    },
+    formatDate: formatDate,
+    formatContent: formatContent,
+    formatName: formatName,
   },
 });
 </script>
@@ -131,7 +109,12 @@ export default defineComponent({
         class="ap-boost-avatar"
         v-if="!post.content"
       />
-      <a :href="post.account.url" target="_blank">
+      <a
+        :href="post.account.url"
+        data-bs-toggle="offcanvas"
+        :data-bs-target="'#' + post.id"
+        aria-controls="offcanvasBottom"
+      >
         <span
           v-html="
             formatName(
@@ -144,6 +127,27 @@ export default defineComponent({
       </a>
       boosted
     </p>
+    <!-- BEGIN: Offcanvas to show booster profile-->
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      :id="post.id"
+      aria-labelledby="offcanvasBottomLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <Profile :post="post"></Profile>
+      </div>
+    </div>
+    <!-- END: Offcanvas to show booster profile-->
 
     <!-- BEGIN: Post Thread -->
     <div class="ap-thread" v-if="post.id">
@@ -154,7 +158,7 @@ export default defineComponent({
         aria-controls="offcanvas-thread-' + post.id"
         @click="orgThreadPost = orgPost"
       >
-        <font-awesome-icon :icon="faComments" />
+        <font-awesome-icon :icon="faComments" class="comments-icon" />
       </a>
       <div
         class="offcanvas offcanvas-start"
@@ -176,7 +180,6 @@ export default defineComponent({
         </div>
       </div>
     </div>
-
     <!-- END: Post Thread -->
 
     <!-- Profile Information Header -->
@@ -196,8 +199,9 @@ export default defineComponent({
       <h6 class="ap-title" v-if="orgPost.content">
         <a
           :href="orgPost.account.url"
-          target="_blank"
-          class="text-xl font-bold text-center"
+          data-bs-toggle="offcanvas"
+          :data-bs-target="'#' + orgPost.id"
+          aria-controls="offcanvasBottom"
         >
           <span
             v-html="
@@ -217,6 +221,29 @@ export default defineComponent({
         </a>
       </h6>
     </div>
+
+    <!-- BEGIN: Offcanvas to show poster profile-->
+    <div
+      class="offcanvas offcanvas-start"
+      tabindex="-1"
+      :id="orgPost.id"
+      aria-labelledby="offcanvasBottomLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasBottomLabel">Profile</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <Profile :post="orgPost"></Profile>
+      </div>
+    </div>
+    <!-- END: Offcanvas to show poster profile-->
+
     <hr />
 
     <!-- BEGIN: Direct parent post of this reply -->
@@ -227,7 +254,6 @@ export default defineComponent({
           data-bs-toggle="offcanvas"
           :data-bs-target="'#' + parentPost.id"
           aria-controls="offcanvasBottom"
-          target="_blank"
         >
           <font-awesome-icon :icon="faQuoteLeft" />&nbsp;&nbsp; @<span
             v-text="parentPost.account.acct"
@@ -235,7 +261,7 @@ export default defineComponent({
         </a>
       </div>
 
-      <!-- BEGIN: Offcanvas for User Profile-->
+      <!-- BEGIN: Offcanvas to show parent poster profile-->
       <div
         class="offcanvas offcanvas-start"
         tabindex="-1"
@@ -243,21 +269,7 @@ export default defineComponent({
         aria-labelledby="offcanvasBottomLabel"
       >
         <div class="offcanvas-header">
-          <h5 class="offcanvas-title" id="offcanvasBottomLabel">
-            <span
-              v-html="
-                formatName(
-                  parentPost.account.display_name,
-                  parentPost.account.username,
-                  parentPost.account
-                )
-              "
-            ></span>
-            <p class="fedihandle-subheader">
-              @<span v-text="parentPost.account.acct"></span>
-            </p>
-          </h5>
-
+          <h5 class="offcanvas-title" id="offcanvasBottomLabel">Profile</h5>
           <button
             type="button"
             class="btn-close"
@@ -265,57 +277,11 @@ export default defineComponent({
             aria-label="Close"
           ></button>
         </div>
-        <div class="offcanvas-body small">
-          <p class="text-center">
-            <img
-              :src="parentPost.account.avatar_static"
-              class="img-thumbnail"
-              style="max-width: 200px"
-            />
-          </p>
-          <p class="text-center">
-            <strong>
-              <span
-                v-text="parentPost.account.statuses_count"
-                class="profile-count"
-              ></span>
-            </strong>
-            Posts &nbsp;&nbsp;
-            <strong>
-              <span
-                v-text="parentPost.account.following_count"
-                class="profile-count"
-              ></span>
-            </strong>
-            Following &nbsp;&nbsp;
-            <strong>
-              <span
-                v-text="parentPost.account.followers_count"
-                class="profile-count"
-              ></span>
-            </strong>
-            Followers
-          </p>
-          <p v-html="parentPost.account.note"></p>
-          <dl v-for="(field, index) in parentPost.account.fields" :key="index" :class="{ 'verified-box': field.verified_at, 'profile-field-box': true }">
-            <dt v-html="formatContent(field.name,parentPost.account.emojis) "></dt>
-            <dd class="profile-field-value">
-              <span v-if="field.verified_at">
-                <font-awesome-icon :icon="faCheck" class="verified-badge fa-xl"/>
-              </span>
-              <span v-html="field.value"></span>
-            </dd>
-            <!-- <td v-html="field.verified_at"></td> -->
-          </dl>
-          <p class="text-center">
-            <a :href="parentPost.account.url" target="_blank">
-              Visit Profile
-              <font-awesome-icon :icon="faAnglesRight" />
-            </a>
-          </p>
+        <div class="offcanvas-body">
+          <Profile :post="parentPost"></Profile>
         </div>
       </div>
-      <!-- END: Offcanvas for User Profile-->
+      <!-- END: Offcanvas to show parent poster Profile-->
 
       <div class="card-body">
         <blockquote class="blockquote mb-0">
@@ -344,7 +310,10 @@ export default defineComponent({
 
     <!-- BEGIN: Original Post Content -->
     <div class="ap-content" v-if="orgPost.content">
-      <p v-html="formatContent(orgPost.content, orgPost.emojis)" class="lead"></p>
+      <p
+        v-html="formatContent(orgPost.content, orgPost.emojis)"
+        class="lead"
+      ></p>
     </div>
     <!-- END: Original Post Content -->
 
@@ -537,6 +506,10 @@ a {
   position: absolute;
 }
 
+.comments-icon {
+  color: rgba(var(--bs-link-color-rgb), 0.2);
+}
+
 /* BEGIN: Boosted Note */
 .ap-boosted-text {
   position: absolute;
@@ -548,9 +521,9 @@ a {
   color: var(--boost-text);
 }
 
-.ap-boosted-text a {
+/* .ap-boosted-text a {
   color: var(--boost-text);
-}
+} */
 
 .ap-boost-avatar {
   height: 18px;
@@ -615,9 +588,9 @@ a {
   font-weight: 600;
 }
 
-.ap-title a {
+/* .ap-title a {
   color: var(--account-name);
-}
+} */
 
 .ap-display-name-emoji {
   width: 20px;
@@ -629,28 +602,6 @@ a {
   font-size: 0.8rem;
 }
 /* END: Profile Header */
-
-/* BEGIN: Profile Dialog */
-
-.profile-field-box {
-  padding: 5px 5px 0 7px;
-}
-
-.verified-box {
-  border: 1px solid #006400;
-  background-color: rgba(144, 238, 144, 0.05);
-  border-radius: 15px;
-}
-
-.profile-field-value {
-  margin-left: 10px;
-}
-
-.verified-badge {
-  color: var(--verified-badge);
-  margin-right: 5px;
-}
-/* END: Profile Dialog */
 
 /* BEGIN: Parent Post */
 .ap-boost-avatar {

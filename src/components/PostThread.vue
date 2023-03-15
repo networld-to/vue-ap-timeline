@@ -2,6 +2,7 @@
 import { format } from 'date-fns';
 import { defineComponent } from 'vue';
 import { getThread } from '../services/ActivityPub';
+import { formatContent, formatName } from '../services/Utility';
 
 export default defineComponent({
   props: {
@@ -24,6 +25,7 @@ export default defineComponent({
             content: '',
             url: '',
             created_at: '',
+            emojis: [{}],
             account: {
               acct: '',
               display_name: '',
@@ -37,6 +39,7 @@ export default defineComponent({
             content: '',
             url: '',
             created_at: '',
+            emojis: [{}],
             account: {
               acct: '',
               display_name: '',
@@ -57,28 +60,8 @@ export default defineComponent({
     formatDate(strDate: string) {
       return format(new Date(strDate), 'MMM do, yyyy, H:mm');
     },
-    formatName(structuredText: string, alternativeName: string, account: any) {
-      if (structuredText == null || structuredText == '') {
-        return alternativeName;
-      }
-      for (var idx in account.emojis) {
-        structuredText = structuredText.replace(
-          `:${account.emojis[idx].shortcode}:`,
-          `<img src='${account.emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
-        );
-      }
-      return structuredText;
-    },
-    formatContent(post: any) {
-      var content = post.content;
-      for (var idx in post.emojis) {
-        content = content.replace(
-          `:${post.emojis[idx].shortcode}:`,
-          `<img src='${post.emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
-        );
-      }
-      return content;
-    },
+    formatName: formatName,
+    formatContent: formatContent,
     load() {
       var that = this;
       if (this.orgPost && this.orgPost.id) {
@@ -120,7 +103,7 @@ export default defineComponent({
             "
           ></span>
         </h5>
-        <p v-html="formatContent(post)"></p>
+        <p v-html="formatContent(post.content, post.emojis)"></p>
         <p class="text-right">
           <small>
             &mdash; <span v-text="formatDate(post.created_at)"></span>
@@ -142,7 +125,7 @@ export default defineComponent({
           "
         ></span>
       </h5>
-      <p v-html="formatContent(orgPost)"></p>
+      <p v-html="formatContent(orgPost.content, orgPost.emojis)"></p>
       <p class="text-right">
         <small>
           &mdash; <span v-text="formatDate(orgPost.created_at)"></span>
@@ -168,7 +151,7 @@ export default defineComponent({
             "
           ></span>
         </h5>
-        <p v-html="formatContent(post)"></p>
+        <p v-html="formatContent(post.content, post.emojis)"></p>
         <p class="text-right">
           <small>
             &mdash; <span v-text="formatDate(post.created_at)"></span>
@@ -182,8 +165,8 @@ export default defineComponent({
 
 <style scoped>
 .original-post {
-  box-shadow: black 0px 2px 5px -1px, black 0px 1px 3px -1px;
-  background-color: #313543;
+  box-shadow: var(--thread-original-post-box-shadow) 0px 2px 5px -1px, var(--thread-original-post-box-shadow) 0px 1px 3px -1px;
+  background-color: var(--thread-original-post-bg);
   padding: 15px;
 }
 
