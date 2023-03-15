@@ -2,7 +2,7 @@
 import { defineComponent } from 'vue';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faAngleRight, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDoubleRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import { formatContent, formatName } from '../services/Utility';
 
@@ -16,7 +16,7 @@ export default defineComponent({
   data() {
     return {
       faCheck: faCheck,
-      faAnglesRight: faAngleRight,
+      faAngleDoubleRight: faAngleDoubleRight,
     };
   },
   methods: {
@@ -82,10 +82,10 @@ export default defineComponent({
       <span v-html="field.value"></span>
     </dd>
   </dl>
-  <p class="text-center">
-    <a :href="post.account.url" target="_blank">
+  <p class="text-center d-grid p-2">
+    <a :href="post.account.url" target="_blank" class="btn btn-secondary btn-small">
       Visit Profile
-      <font-awesome-icon :icon="faAnglesRight" />
+      <font-awesome-icon :icon="faAngleDoubleRight" />
     </a>
   </p>
 </template>
