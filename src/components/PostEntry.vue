@@ -2,6 +2,7 @@
 import { defineComponent } from 'vue';
 import { format } from 'date-fns';
 import { getPost } from '../services/ActivityPub';
+import PostThread from './PostThread.vue';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import {
@@ -10,6 +11,7 @@ import {
   faQuoteLeft,
   faAnglesRight,
   faReply,
+  faComments,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default defineComponent({
@@ -30,6 +32,7 @@ export default defineComponent({
       faQuoteLeft: faQuoteLeft,
       faAnglesRight: faAnglesRight,
       faReply: faReply,
+      faComments: faComments,
       parentPost: {
         id: '',
         content: '',
@@ -47,10 +50,12 @@ export default defineComponent({
         url: '',
       },
       orgPost: {} as Record<string, any>,
+      orgThreadPost: {} as Record<string, any>,
     };
   },
   components: {
     FontAwesomeIcon,
+    PostThread,
   },
   beforeMount() {
     // If the post is a boost aka. reblog set the orgPost variable reblog, otherwise keep the root post.
@@ -128,6 +133,40 @@ export default defineComponent({
       </a>
       boosted
     </p>
+
+    <!-- BEGIN: Post Thread -->
+    <div class="ap-thread" v-if="parentPost.id">
+      <a
+        data-bs-toggle="offcanvas"
+        :href="'#offcanvas-thread-' + parentPost.id"
+        role="button"
+        aria-controls="offcanvas-thread-' + parentPost.id"
+        @click="orgThreadPost = post"
+      >
+      <font-awesome-icon :icon="faComments" />
+      </a>
+      <div
+        class="offcanvas offcanvas-start"
+        tabindex="-1"
+        :id="'offcanvas-thread-' + parentPost.id"
+        :aria-labelledby="'offcanvas-thread-' + parentPost.id + '-label'"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasThreadLabel">Post Thread</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <PostThread :orgPost="orgThreadPost" :instance-host="instanceHost" />
+        </div>
+      </div>
+    </div>
+
+    <!-- END: Post Thread -->
 
     <!-- Profile Information Header -->
     <div class="ap-avatar-box">
@@ -485,6 +524,29 @@ a {
   height: 15px;
 }
 /* BEGIN: Boosted Note */
+
+/* BEGIN: Post Thread */
+.ap-thread {
+  position: absolute;
+  top: 8px;
+  right: 60px;
+}
+
+.ap-thread .offcanvas a {
+    font-size: 1rem;
+    color: var(--ap-light-link-color);
+}
+
+.ap-thread a {
+  text-align: center;
+  font-size: 1.75rem;
+
+  color: rgba(0, 0, 0, 0.2);
+  top: 8px;
+  right: 60px;
+  color: rgba(255, 255, 255, 0.2);
+}
+/* END: Post Thread */
 
 /* BEGIN: Profile Header */
 .ap-avatar-box {
