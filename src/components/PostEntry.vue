@@ -297,11 +297,12 @@ export default defineComponent({
       <div class="carousel-inner">
         <div
           :class="{ 'carousel-item': true, active: index == 0 }"
-          v-for="(img, index) in orgPost.media_attachments"
+          v-for="(media, index) in orgPost.media_attachments"
           :key="index"
         >
-          <a :href="img.url" target="_blank">
-            <img :src="img.url" class="d-block w-100" :alt="img.description" />
+          <a :href="media.url" target="_blank">
+            <img :src="media.url" class="" :alt="media.description" v-if="media.type == 'image'"/>
+            <img :src="media.preview_url" class="" :alt="media.description" v-if="media.type == 'video'"/>
           </a>
         </div>
       </div>
@@ -560,7 +561,8 @@ a {
 
 /* BEGIN: Multimedia */
 .carousel {
-  max-height: 400px;
+  max-height: 650px;
+  text-align: center;
 }
 
 .carousel a img {
