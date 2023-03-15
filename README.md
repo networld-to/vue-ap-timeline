@@ -1,9 +1,9 @@
 # Vue Component Library for ActivityPub Timelines
 
-## Demo
-
 Integrate your Fediverse timeline into your Vue 3 with Bootstrap 5 application.
 Currently, tested with [Mastodon](https://joinmastodon.org).
+
+Integrate a dark or light themed timeline into your own website.
 
 ![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-and-light-demo.png)
 
@@ -13,7 +13,6 @@ on the Fediverse handle in the quoted parent post.
 
 ![Two different timelines with profile dialog open](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/two-different-timelines-with-profile-dialog.png)
 
-Integrate a dark or light themed timeline into your own website.
 
 ## Getting Started
 
