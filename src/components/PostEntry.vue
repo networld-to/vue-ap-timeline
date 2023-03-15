@@ -135,21 +135,21 @@ export default defineComponent({
     </p>
 
     <!-- BEGIN: Post Thread -->
-    <div class="ap-thread" v-if="parentPost.id">
+    <div class="ap-thread" v-if="post.id">
       <a
         data-bs-toggle="offcanvas"
-        :href="'#offcanvas-thread-' + parentPost.id"
+        :href="'#offcanvas-thread-' + post.id"
         role="button"
-        aria-controls="offcanvas-thread-' + parentPost.id"
-        @click="orgThreadPost = post"
+        aria-controls="offcanvas-thread-' + post.id"
+        @click="orgThreadPost = orgPost"
       >
       <font-awesome-icon :icon="faComments" />
       </a>
       <div
         class="offcanvas offcanvas-start"
         tabindex="-1"
-        :id="'offcanvas-thread-' + parentPost.id"
-        :aria-labelledby="'offcanvas-thread-' + parentPost.id + '-label'"
+        :id="'offcanvas-thread-' + post.id"
+        :aria-labelledby="'offcanvas-thread-' + post.id + '-label'"
       >
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offcanvasThreadLabel">Post Thread</h5>
@@ -323,7 +323,7 @@ export default defineComponent({
 
     <!-- BEGIN: Original Post Content -->
     <div class="ap-content" v-if="orgPost.content">
-      <p v-html="formatContent(orgPost)"></p>
+      <p v-html="formatContent(orgPost)" class="lead"></p>
     </div>
     <!-- END: Original Post Content -->
 
@@ -481,6 +481,15 @@ a {
   border-bottom: 1px solid var(--post-bottom-border);
 }
 
+.ap-content {
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.ap-content p {
+  font-size: 1.1rem;
+}
+
 .ap-content a {
   font-weight: 400;
   color: var(--content-color);
@@ -529,7 +538,7 @@ a {
 .ap-thread {
   position: absolute;
   top: 8px;
-  right: 60px;
+  right: 35px;
 }
 
 .ap-thread .offcanvas a {
@@ -637,7 +646,7 @@ a {
 
 /* BEGIN: Footer */
 .post-footer {
-  padding-top: 50px;
+  padding-top: 40px;
 }
 .ap-stats {
   position: absolute;
