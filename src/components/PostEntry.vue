@@ -12,6 +12,7 @@ import {
   faAnglesRight,
   faReply,
   faComments,
+  faCheck,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default defineComponent({
@@ -33,9 +34,11 @@ export default defineComponent({
       faAnglesRight: faAnglesRight,
       faReply: faReply,
       faComments: faComments,
+      faCheck: faCheck,
       parentPost: {
         id: '',
         content: '',
+        emojis: {},
         account: {
           acct: '',
           avatar_static: '',
@@ -46,7 +49,16 @@ export default defineComponent({
           statuses_count: 0,
           followers_count: 0,
           following_count: 0,
+          emojis: {},
+          fields: [
+            {
+              name: '',
+              value: '',
+              verified_at: '',
+            },
+          ],
         },
+
         url: '',
       },
       orgPost: {} as Record<string, any>,
@@ -97,12 +109,11 @@ export default defineComponent({
       }
       return structuredText;
     },
-    formatContent(post: any) {
-      var content = post.content;
-      for (var idx in post.emojis) {
+    formatContent(content: any, emojis: any) {
+      for (var idx in emojis) {
         content = content.replace(
-          `:${post.emojis[idx].shortcode}:`,
-          `<img src='${post.emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
+          `:${emojis[idx].shortcode}:`,
+          `<img src='${emojis[idx].url}' alt='emoji' class='ap-display-name-emoji'/>`
         );
       }
       return content;
@@ -143,7 +154,7 @@ export default defineComponent({
         aria-controls="offcanvas-thread-' + post.id"
         @click="orgThreadPost = orgPost"
       >
-      <font-awesome-icon :icon="faComments" />
+        <font-awesome-icon :icon="faComments" />
       </a>
       <div
         class="offcanvas offcanvas-start"
@@ -286,6 +297,16 @@ export default defineComponent({
             Followers
           </p>
           <p v-html="parentPost.account.note"></p>
+          <dl v-for="(field, index) in parentPost.account.fields" :key="index">
+            <dt v-html="formatContent(field.name,parentPost.account.emojis) "></dt>
+            <dd class="profile-field-value">
+              <span v-if="field.verified_at">
+                <font-awesome-icon :icon="faCheck" class="verified-badge fa-xl"/>
+              </span>
+              <span v-html="field.value"></span>
+            </dd>
+            <!-- <td v-html="field.verified_at"></td> -->
+          </dl>
           <p class="text-center">
             <a :href="parentPost.account.url" target="_blank">
               Visit Profile
@@ -323,7 +344,7 @@ export default defineComponent({
 
     <!-- BEGIN: Original Post Content -->
     <div class="ap-content" v-if="orgPost.content">
-      <p v-html="formatContent(orgPost)" class="lead"></p>
+      <p v-html="formatContent(orgPost.content, orgPost.emojis)" class="lead"></p>
     </div>
     <!-- END: Original Post Content -->
 
@@ -340,8 +361,18 @@ export default defineComponent({
           :key="index"
         >
           <a :href="media.url" target="_blank">
-            <img :src="media.url" class="d-block w-100" :alt="media.description" v-if="media.type == 'image'"/>
-            <img :src="media.preview_url" class="d-block w-100" :alt="media.description" v-if="media.type == 'video'"/>
+            <img
+              :src="media.url"
+              class="d-block w-100"
+              :alt="media.description"
+              v-if="media.type == 'image'"
+            />
+            <img
+              :src="media.preview_url"
+              class="d-block w-100"
+              :alt="media.description"
+              v-if="media.type == 'video'"
+            />
           </a>
         </div>
       </div>
@@ -544,8 +575,8 @@ a {
 }
 
 .ap-thread .offcanvas a {
-    font-size: 1rem;
-    color: var(--ap-light-link-color);
+  font-size: 1rem;
+  color: var(--ap-light-link-color);
 }
 
 .ap-thread a {
@@ -598,6 +629,17 @@ a {
   font-size: 0.8rem;
 }
 /* END: Profile Header */
+
+/* BEGIN: Profile Dialog */
+.verified-badge {
+  color: var(--verified-badge);
+  margin-right: 5px;
+}
+
+.profile-field-value {
+  margin-left: 10px;
+}
+/* END: Profile Dialog */
 
 /* BEGIN: Parent Post */
 .ap-boost-avatar {
@@ -666,8 +708,6 @@ a {
   position: absolute;
   bottom: 20px;
   right: 50px;
-  /* padding: 0px;
-  margin: 0px; */
   font-size: 0.8rem !important;
 }
 
