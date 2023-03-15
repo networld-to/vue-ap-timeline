@@ -706,7 +706,7 @@ a {
 .ap-stats {
   position: absolute;
   bottom: 20px;
-  left: 50px;
+  left: 25px;
   font-size: 0.8rem !important;
   opacity: 0.7;
 }
