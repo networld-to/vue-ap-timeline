@@ -19,6 +19,7 @@ export default defineComponent({
     numberOfPosts: {
       type: String,
       required: false,
+      default: '10'
     },
     excludeReplies: {
       type: Boolean,
@@ -32,31 +33,39 @@ export default defineComponent({
   },
   data() {
     return {
+      loading: true,
+      error: '',
       posts: [],
     };
   },
   beforeMount() {
-    var limit = this.numberOfPosts || '10';
-    var noReplies = this.excludeReplies || false;
     getAccountStatuses(
       this.instanceHost,
       this.accountID,
-      limit,
-      noReplies
+      this.numberOfPosts,
+      this.excludeReplies,
     ).then((data) => {
+      this.loading = false;
       this.posts = data;
+    }).catch((error) => {
+      this.loading = false;
+      this.error = error.message;
     });
   },
 });
 </script>
 
 <template>
-  <div class="spin-container" v-if="!posts.length">
+  <div class="spin-container" v-if="!posts.length && loading">
     <div class="spin" id="loader"></div>
     <div class="spin" id="loader2"></div>
     <div class="spin" id="loader3"></div>
     <div class="spin" id="loader4"></div>
     <span id="text">LOADING...</span>
+  </div>
+
+  <div class="alert alert-danger" role="alert" v-if="error">
+    Loading the timeline failed. Error: <strong><span v-text="error"></span></strong>
   </div>
 
   <PostEntry

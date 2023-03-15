@@ -269,7 +269,7 @@ export default defineComponent({
           <p class="text-center">
             <img
               :src="parentPost.account.avatar_static"
-              class="rounded"
+              class="img-thumbnail"
               style="max-width: 200px"
             />
           </p>
