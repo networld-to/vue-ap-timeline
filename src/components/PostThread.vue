@@ -101,6 +101,7 @@ export default defineComponent({
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
+      <p><br/></p>
     </div>
     <div
       v-for="(post, index) in thread.ancestors"
