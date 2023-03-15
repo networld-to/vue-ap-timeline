@@ -92,6 +92,7 @@ export default defineComponent({
   --verified-badge: green;
   --thread-original-post-bg: #313543;
   --thread-original-post-box-shadow: black;
+  --loading-text: #0d4b9f;
 }
 
 [data-bs-theme='light'] {
@@ -108,6 +109,7 @@ export default defineComponent({
   --verified-badge: darkgreen;
   --thread-original-post-bg: #EEE;
   --thread-original-post-box-shadow: gray;
+  --loading-text: #0d4b9f;
 }
 
 .spin-container {
@@ -172,7 +174,7 @@ export default defineComponent({
   }
 }
 #text {
-  color: #0d4b9f;
+  color: var(--loading-text);
   font-family: Arial;
   font-size: 18px;
   font-weight: 600;

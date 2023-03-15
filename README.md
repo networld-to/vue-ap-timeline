@@ -7,13 +7,14 @@ Currently, tested with [Mastodon](https://joinmastodon.org).
 
 Integrate a dark or light themed timeline into your own website.
 
-![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-and-light-demo.png)
+![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-and-dark-themed-timelines.png)
 
 The picture below shows two timelines for different users with a different
 style and the profile dialog. The profile dialog can be opened when clicking
 on the Fediverse handle in the quoted parent post.
 
-![Two different timelines with profile dialog open](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/two-different-timelines-with-profile-dialog.png)
+![Dark themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-themed-timeline-with-profile.png)
+![Light themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-themed-profile-with-profile.png)
 
 
 ## Getting Started
