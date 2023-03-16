@@ -3,15 +3,14 @@
 ### Added
 
 * Visually appealing Fediverse (Mastodon) timeline that can be integrated in any Vue 3 with Bootstrap 5 app.
+* Support for profile information and post threads without leaving the timeline
+* Verified links in a profile are highlighted accordingly. Verification is performed by the instance.
+* Replies to other posts show the parent post as quote.
 * Configurable dark and light theme
 * Configurable number of posts to show
 * Configurable instance and account ID
-* Posts that are replies to other posts show the parent post as quote.
-* Profiles of different types of posters are shown in a dialog, without leaving the page.
-* Each post links to a dialog that shows the ancestor and descendant posts, without leaving the page.
-* Verified links in a profile are highlighted accordingly. Verification is performed by the instance.
 * Support for emojis in the post content, the profile name and the link label.
-* Released under the MIT license without any branding.
+* Released under the MIT license without any branding, i.e., white labeling possible.
 * No tracker, ads or any other funky business.
 * Released as [NPM package]
 

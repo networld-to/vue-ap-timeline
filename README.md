@@ -9,14 +9,6 @@ Integrate a dark or light themed timeline into your own website.
 
 ![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-and-dark-themed-timelines.png)
 
-The picture below shows two timelines for different users with a different
-style and the profile dialog. The profile dialog can be opened when clicking
-on the Fediverse handle in the quoted parent post.
-
-![Dark themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-themed-timeline-with-profile.png)
-![Light themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-themed-profile-with-profile.png)
-
-
 ## Getting Started
 
 Add the Vue ActivityPub Timeline to your Vue 3 project.
@@ -73,6 +65,11 @@ Example how to include a dark and light themed timeline side by side.
 
 Currently tested with Mastodon. Should be compatible with other Mastodon API
 compatible projects. More projects will be supported in the future.
+
+## More Screenshots
+
+![Dark themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-themed-timeline-with-profile.png)
+![Light themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-themed-profile-with-profile.png)
 
 ## Developers
 
