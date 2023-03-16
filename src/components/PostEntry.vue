@@ -436,10 +436,10 @@ export default defineComponent({
           <div class="card-body">
             <a :href="orgPost.card.url" class="stretched-link" target="_blank">
               <h5 class="card-title" v-html="orgPost.card.title"></h5>
-              <p class="card-text" v-html="orgPost.card.description"></p>
+              <p class="card-text text-truncate" v-html="orgPost.card.description"></p>
               <p class="card-text">
                 <small
-                  class="text-muted"
+                  class="text-muted text-truncate"
                   v-text="orgPost.card.provider_name"
                 ></small>
               </p>
