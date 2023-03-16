@@ -343,7 +343,7 @@ export default defineComponent({
     >
       <div class="carousel-inner">
         <div
-          :class="{ 'carousel-item': true, active: index == 0 }"
+          :class="{ 'carousel-item': true, active: index == 0, ratio: true, 'ratio-16x9': true }"
           v-for="(media, index) in orgPost.media_attachments"
           :key="index"
         >
@@ -657,14 +657,10 @@ a {
 
 /* BEGIN: Multimedia */
 .carousel {
-  max-height: 400px;
   margin-bottom: 25px;
 }
 
 .carousel a img {
-  max-height: 400px;
-  width: cover;
-  object-fit: cover;
   margin-bottom: 25px;
 }
 /* END: Multimedia */
