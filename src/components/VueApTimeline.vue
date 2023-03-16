@@ -98,14 +98,14 @@ export default defineComponent({
 [data-bs-theme='light'] {
   --post-bg: #fff;
   --content-color: #212529;
-  --post-bottom-border: #212529;
+  --post-bottom-border: #d2d2d2;
   --post-text-color: #212529;
   --boost-text: #000;
   --account-name: #212529;
   --card-body: rgba(0, 0, 0, 0.7);
-  --post-footer-link: rgba(0, 0, 0, 0.7);
-  --post-box-shadow-1: rgba(50, 50, 93, 0.9);
-  --post-box-shadow-2: rgba(0, 0, 0, 0.07);
+  --post-footer-link: transparent;
+  --post-box-shadow-1: rgba(0, 0, 0, 0.07);
+  --post-box-shadow-2: transparent;
   --verified-badge: darkgreen;
   --thread-original-post-bg: #EEE;
   --thread-original-post-box-shadow: gray;
