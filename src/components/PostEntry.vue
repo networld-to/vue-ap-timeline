@@ -102,7 +102,7 @@ export default defineComponent({
 
 <template>
   <div class="ap-post">
-    <p class="ap-boosted-text" v-if="post.reblog && post.reblog.content">
+    <p class="ap-boost-text" v-if="post.reblog && post.reblog.content">
       <font-awesome-icon :icon="faRocket" />
       <img
         :src="post.account.avatar_static"
@@ -126,6 +126,30 @@ export default defineComponent({
         ></span>
       </a>
       boosted
+    </p>
+
+    <p class="ap-reply-text" v-if="parentPost.account.username">
+      <font-awesome-icon :icon="faReply" />&nbsp;&nbsp;reply to
+      <img
+        :src="parentPost.account.avatar_static"
+        class="ap-reply-avatar"
+      />
+      <a
+        :href="parentPost.account.url"
+        data-bs-toggle="offcanvas"
+        :data-bs-target="'#' + parentPost.id"
+        aria-controls="offcanvasBottom"
+      >
+        <span
+          v-html="
+            formatName(
+              parentPost.account.display_name,
+              parentPost.account.username,
+              parentPost.account
+            )
+          "
+        ></span>
+      </a>
     </p>
     <!-- BEGIN: Offcanvas to show booster profile-->
     <div
@@ -185,14 +209,8 @@ export default defineComponent({
     <!-- Profile Information Header -->
     <div class="ap-avatar-box">
       <img
-        :src="post.account.avatar_static"
+        :src="orgPost.account.avatar_static"
         class="ap-avatar"
-        v-if="post.content"
-      />
-      <img
-        :src="post.reblog.account.avatar_static"
-        class="ap-avatar"
-        v-if="!post.content"
       />
 
       <!-- Show the content of the original post -->
@@ -477,7 +495,7 @@ a {
   position: relative;
   background-color: var(--post-bg) !important;
   color: var(--post-text-color);
-  padding: 25px;
+  padding: 25px 40px 25px 40px;
   box-shadow: 0 15px 35px var(--post-box-shadow-1),
     0 5px 15px var(--post-box-shadow-2) !important;
   border-bottom: 1px solid var(--post-bottom-border);
@@ -507,25 +525,26 @@ a {
 }
 
 .comments-icon {
-  color: rgba(var(--bs-link-color-rgb), 0.2);
+  color: var(--boost-text);
+  opacity: 0.1;
 }
 
 /* BEGIN: Boosted Note */
-.ap-boosted-text {
+.ap-boost-text, .ap-reply-text {
   position: absolute;
   top: 17px;
   left: 45px;
   font-size: 0.8rem;
-  opacity: 0.7;
-  font-weight: 800;
+  opacity: 0.4;
+  font-weight: 700;
   color: var(--boost-text);
 }
 
-/* .ap-boosted-text a {
+.ap-boost-text a, .ap-reply-text a {
   color: var(--boost-text);
-} */
+}
 
-.ap-boost-avatar {
+.ap-boost-avatar, .ap-reply-avatar {
   height: 18px;
   width: 18px;
   margin-left: 5px;
@@ -534,7 +553,7 @@ a {
   vertical-align: top;
 }
 
-.ap-boosted-text img.ap-display-name-emoji {
+.ap-boost-text img.ap-display-name-emoji {
   width: 15px;
   height: 15px;
 }
@@ -657,7 +676,7 @@ a {
 .ap-stats {
   position: absolute;
   bottom: 20px;
-  left: 25px;
+  left: 50px;
   font-size: 0.8rem !important;
   opacity: 0.7;
 }

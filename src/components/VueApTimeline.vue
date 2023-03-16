@@ -83,7 +83,7 @@ export default defineComponent({
   --content-color: #babdff;
   --post-bottom-border: #fff;
   --post-text-color: #fff;
-  --boost-text: #babdff;
+  --boost-text: #fff;
   --account-name: #babdff;
   --card-body: rgba(255, 255, 255, 0.7);
   --post-footer-link: rgba(255, 255, 255, 0.7);
@@ -100,7 +100,7 @@ export default defineComponent({
   --content-color: #212529;
   --post-bottom-border: #212529;
   --post-text-color: #212529;
-  --boost-text: #212529;
+  --boost-text: #fff;
   --account-name: #212529;
   --card-body: rgba(0, 0, 0, 0.7);
   --post-footer-link: rgba(0, 0, 0, 0.7);
