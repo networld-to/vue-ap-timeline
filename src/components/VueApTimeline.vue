@@ -100,7 +100,7 @@ export default defineComponent({
   --content-color: #212529;
   --post-bottom-border: #212529;
   --post-text-color: #212529;
-  --boost-text: #fff;
+  --boost-text: #000;
   --account-name: #212529;
   --card-body: rgba(0, 0, 0, 0.7);
   --post-footer-link: rgba(0, 0, 0, 0.7);
