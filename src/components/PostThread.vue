@@ -30,6 +30,7 @@ export default defineComponent({
               acct: '',
               display_name: '',
               username: '',
+              avatar_static: '',
             },
           },
         ],
@@ -44,6 +45,7 @@ export default defineComponent({
               acct: '',
               display_name: '',
               username: '',
+              avatar_static: '',
             },
           },
         ],
@@ -51,7 +53,7 @@ export default defineComponent({
     };
   },
   watch: {
-    orgPost: function() {
+    orgPost: function () {
       this.load();
     },
   },
@@ -84,7 +86,7 @@ export default defineComponent({
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
-      <p><br/></p>
+      <p><br /></p>
     </div>
     <div
       v-for="(post, index) in thread.ancestors"
@@ -92,17 +94,26 @@ export default defineComponent({
       class="thread-post"
     >
       <div v-if="post.id">
-        <h5>
-          <span
-            v-html="
-              formatName(
-                post.account.display_name,
-                post.account.username,
-                post.account
-              )
-            "
-          ></span>
-        </h5>
+        <div class="thread-avatar-box">
+          <img :src="post.account.avatar_static" class="thread-avatar" />
+
+          <!-- Show the content of the original post -->
+          <h5 class="thread-title" v-if="post.content">
+            <span
+              v-html="
+                formatName(
+                  post.account.display_name,
+                  post.account.username,
+                  post.account
+                )
+              "
+            ></span>
+            <br />
+            <span class="thread-username">
+              <span>@{{ post.account.username }}</span>
+            </span>
+          </h5>
+        </div>
         <p v-html="formatContent(post.content, post.emojis)"></p>
         <p class="text-right">
           <small>
@@ -114,17 +125,26 @@ export default defineComponent({
     </div>
 
     <div class="original-post">
-      <h5>
-        <span
-          v-html="
-            formatName(
-              orgPost.account.display_name,
-              orgPost.account.username,
-              orgPost.account
-            )
-          "
-        ></span>
-      </h5>
+      <div class="thread-avatar-box">
+          <img :src="orgPost.account.avatar_static" class="thread-avatar" />
+
+          <!-- Show the content of the original orgPost -->
+          <h5 class="thread-title" v-if="orgPost.content">
+            <span
+              v-html="
+                formatName(
+                  orgPost.account.display_name,
+                  orgPost.account.username,
+                  orgPost.account
+                )
+              "
+            ></span>
+            <br />
+            <span class="thread-username">
+              <span>@{{ orgPost.account.username }}</span>
+            </span>
+          </h5>
+        </div>
       <p v-html="formatContent(orgPost.content, orgPost.emojis)"></p>
       <p class="text-right">
         <small>
@@ -140,17 +160,26 @@ export default defineComponent({
       class="thread-post"
     >
       <div v-if="post.id">
-        <h5>
-          <span
-            v-html="
-              formatName(
-                post.account.display_name,
-                post.account.username,
-                post.account
-              )
-            "
-          ></span>
-        </h5>
+        <div class="thread-avatar-box">
+          <img :src="post.account.avatar_static" class="thread-avatar" />
+
+          <!-- Show the content of the original post -->
+          <h5 class="thread-title" v-if="post.content">
+            <span
+              v-html="
+                formatName(
+                  post.account.display_name,
+                  post.account.username,
+                  post.account
+                )
+              "
+            ></span>
+            <br />
+            <span class="thread-username">
+              <span>@{{ post.account.username }}</span>
+            </span>
+          </h5>
+        </div>
         <p v-html="formatContent(post.content, post.emojis)"></p>
         <p class="text-right">
           <small>
@@ -165,12 +194,42 @@ export default defineComponent({
 
 <style scoped>
 .original-post {
-  box-shadow: var(--thread-original-post-box-shadow) 0px 2px 5px -1px, var(--thread-original-post-box-shadow) 0px 1px 3px -1px;
+  box-shadow: var(--thread-original-post-box-shadow) 0px 2px 5px -1px,
+    var(--thread-original-post-box-shadow) 0px 1px 3px -1px;
   background-color: var(--thread-original-post-bg);
   padding: 15px;
 }
 
 .text-right {
   text-align: right;
+}
+
+.thread-avatar-box {
+  position: relative;
+  text-align: center;
+  margin-top: 10px;
+  height: 60px;
+}
+
+.thread-avatar {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  left: 10px;
+  border-radius: 5px;
+}
+
+.thread-title {
+  position: absolute;
+  left: 70px;
+  width: 100%;
+  padding-top: 4px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.thread-username {
+  font-size: 0.75rem;
 }
 </style>
