@@ -103,7 +103,7 @@ export default defineComponent({
   --boost-text: #000;
   --account-name: #212529;
   --card-body: rgba(0, 0, 0, 0.7);
-  --post-footer-link: transparent;
+  --post-footer-link: #212529;
   --post-box-shadow-1: rgba(0, 0, 0, 0.07);
   --post-box-shadow-2: transparent;
   --verified-badge: darkgreen;
