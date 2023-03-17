@@ -130,10 +130,7 @@ export default defineComponent({
 
     <p class="ap-reply-text" v-if="parentPost.account.username">
       <font-awesome-icon :icon="faReply" />&nbsp;&nbsp;reply to
-      <img
-        :src="parentPost.account.avatar_static"
-        class="ap-reply-avatar"
-      />
+      <img :src="parentPost.account.avatar_static" class="ap-reply-avatar" />
       <a
         :href="parentPost.account.url"
         data-bs-toggle="offcanvas"
@@ -208,10 +205,7 @@ export default defineComponent({
 
     <!-- Profile Information Header -->
     <div class="ap-avatar-box">
-      <img
-        :src="orgPost.account.avatar_static"
-        class="ap-avatar"
-      />
+      <img :src="orgPost.account.avatar_static" class="ap-avatar" />
 
       <!-- Show the content of the original post -->
       <h6 class="ap-title" v-if="orgPost.content">
@@ -343,7 +337,12 @@ export default defineComponent({
     >
       <div class="carousel-inner">
         <div
-          :class="{ 'carousel-item': true, active: index == 0, ratio: true, 'ratio-16x9': true }"
+          :class="{
+            'carousel-item': true,
+            active: index == 0,
+            ratio: true,
+            'ratio-16x9': true,
+          }"
           v-for="(media, index) in orgPost.media_attachments"
           :key="index"
         >
@@ -436,7 +435,10 @@ export default defineComponent({
           <div class="card-body">
             <a :href="orgPost.card.url" class="stretched-link" target="_blank">
               <h5 class="card-title" v-html="orgPost.card.title"></h5>
-              <p class="card-text text-truncate" v-html="orgPost.card.description"></p>
+              <p
+                class="card-text text-truncate"
+                v-html="orgPost.card.description"
+              ></p>
               <p class="card-text">
                 <small
                   class="text-muted text-truncate"
@@ -531,7 +533,8 @@ a {
 }
 
 /* BEGIN: Boosted Note */
-.ap-boost-text, .ap-reply-text {
+.ap-boost-text,
+.ap-reply-text {
   position: absolute;
   top: 17px;
   left: 45px;
@@ -541,11 +544,13 @@ a {
   color: var(--boost-text);
 }
 
-.ap-boost-text a, .ap-reply-text a {
+.ap-boost-text a,
+.ap-reply-text a {
   color: var(--boost-text);
 }
 
-.ap-boost-avatar, .ap-reply-avatar {
+.ap-boost-avatar,
+.ap-reply-avatar {
   height: 18px;
   width: 18px;
   margin-left: 5px;
