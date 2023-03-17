@@ -499,6 +499,7 @@ a {
   box-shadow: 0 15px 35px var(--post-box-shadow-1),
     0 5px 15px var(--post-box-shadow-2) !important;
   border-bottom: 1px solid var(--post-bottom-border);
+  overflow: hidden;
 }
 
 .ap-content {
