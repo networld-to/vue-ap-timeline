@@ -3,7 +3,10 @@ import { defineComponent } from 'vue';
 import PostEntry from './PostEntry.vue';
 
 import FediverseAccount from '@networld-to/fediverse-helper';
-import { getMastodonAccountStatuses, getMastodonAccountID } from '../services/Mastodon';
+import {
+  getMastodonAccountStatuses,
+  getMastodonAccountID,
+} from '../services/Mastodon';
 
 export default defineComponent({
   components: {
@@ -21,7 +24,7 @@ export default defineComponent({
     numberOfPosts: {
       type: String,
       required: false,
-      default: '10'
+      default: '10',
     },
     excludeReplies: {
       type: Boolean,
@@ -44,27 +47,35 @@ export default defineComponent({
   },
   async beforeMount() {
     const fediAccount = new FediverseAccount(this.fediverseHandle);
-    if (this.fediversePlatform == "mastodon") {
-      this.instanceHost = await fediAccount.getInstanceHost()
-      this.accountID = await getMastodonAccountID(this.instanceHost, this.fediverseHandle)
+    if (
+      this.fediversePlatform.toLowerCase() == 'mastodon' ||
+      this.fediversePlatform.toLowerCase() == 'akkoma'
+    ) {
+      this.instanceHost = await fediAccount.getInstanceHost();
+      this.accountID = await getMastodonAccountID(
+        this.instanceHost,
+        this.fediverseHandle
+      );
 
       getMastodonAccountStatuses(
         this.instanceHost,
         this.accountID,
         this.numberOfPosts,
-        this.excludeReplies,
-      ).then((data) => {
-      this.loading = false;
-      this.posts = data;
-    }).catch((error) => {
-      this.loading = false;
-      this.error = error.message;
-    });
+        this.excludeReplies
+      )
+        .then((data) => {
+          this.loading = false;
+          this.posts = data;
+        })
+        .catch((error) => {
+          this.loading = false;
+          this.error = error.message;
+        });
     } else {
-      console.error(`Fediverse Platform ${this.fediversePlatform} not yet supported.`)
+      console.error(
+        `Fediverse Platform ${this.fediversePlatform} not yet supported.`
+      );
     }
-
-
   },
 });
 </script>
@@ -79,7 +90,8 @@ export default defineComponent({
   </div>
 
   <div class="alert alert-danger" role="alert" v-if="error">
-    Loading the timeline failed. Error: <strong><span v-text="error"></span></strong>
+    Loading the timeline failed. Error:
+    <strong><span v-text="error"></span></strong>
   </div>
 
   <PostEntry
@@ -121,7 +133,7 @@ export default defineComponent({
   --post-box-shadow-1: rgba(0, 0, 0, 0.07);
   --post-box-shadow-2: transparent;
   --verified-badge: darkgreen;
-  --thread-original-post-bg: #EEE;
+  --thread-original-post-bg: #eee;
   --thread-original-post-box-shadow: gray;
   --loading-text: #0d4b9f;
 }
@@ -197,8 +209,7 @@ export default defineComponent({
 }
 
 .loading a {
-    font-size: 1.5rem;
-    padding: 15px;
+  font-size: 1.5rem;
+  padding: 15px;
 }
-
 </style>

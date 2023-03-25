@@ -29,11 +29,11 @@ Add the following to your main.ts file.
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap';
 import VueApTimeline from '@networld-to/vue-ap-timeline';
-import '@networld-to/vue-ap-timeline/dist/style.css'
+import '@networld-to/vue-ap-timeline/dist/style.css';
 
-var app = createApp(App)
-app.use(VueApTimeline)
-app.mount('#app')
+var app = createApp(App);
+app.use(VueApTimeline);
+app.mount('#app');
 ```
 
 Example how to include a dark and light themed timeline side by side, with optional
@@ -69,7 +69,19 @@ the number of posts specified, to show the latest 10 posts.
 Currently only compatible with Mastodon through CORS issue of ActivityPub endpoints
 with all the tested Fediverse platforms.
 
-`fediverseHandle` and `fediversePlatform` (with value `mastodon`) are required.
+`fediverseHandle` and `fediversePlatform` (with value `mastodon` or `akkoma`) are required.
+
+## Supported ActivityPub Platforms
+
+Through CORS issues making most, if not all, of the ActivityPub native endpoints
+inaccessible from the browser a fallback to the native platform API is required.
+The following list shows
+
+| Platforms | fediversePlatform value | Supported Via                               | Tested                         |
+| --------- | ----------------------- | ------------------------------------------- | ------------------------------ |
+| Mastodon  | `mastodon`              | Mastodon API                                | Fully                          |
+| Akkoma    | `akkoma`                | Mastodon Compatible API                     | Partially                      |
+| Lemmy     | N/A                     | Not supported, initial webfinger call fails | first fediverse-helper library call fails |
 
 ## More Screenshots
 
