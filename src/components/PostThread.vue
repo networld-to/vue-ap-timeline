@@ -1,7 +1,7 @@
 <script lang="ts">
 import { format } from 'date-fns';
 import { defineComponent } from 'vue';
-import { getThread } from '../services/ActivityPub';
+import { getMastodonThread } from '../services/Mastodon';
 import { formatContent, formatName } from '../services/Utility';
 
 export default defineComponent({
@@ -67,7 +67,7 @@ export default defineComponent({
     load() {
       var that = this;
       if (this.orgPost && this.orgPost.id) {
-        getThread(this.instanceHost, this.orgPost.id)
+        getMastodonThread(this.instanceHost, this.orgPost.id)
           .then((response: any) => {
             that.thread = response;
           })

@@ -1,18 +1,20 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import PostEntry from './PostEntry.vue';
-import { getAccountStatuses } from '../services/ActivityPub';
+
+import FediverseAccount from '@networld-to/fediverse-helper';
+import { getMastodonAccountStatuses, getMastodonAccountID } from '../services/Mastodon';
 
 export default defineComponent({
   components: {
     PostEntry,
   },
   props: {
-    instanceHost: {
+    fediverseHandle: {
       type: String,
       required: true,
     },
-    accountID: {
+    fediversePlatform: {
       type: String,
       required: true,
     },
@@ -33,24 +35,36 @@ export default defineComponent({
   },
   data() {
     return {
+      instanceHost: '',
+      accountID: '',
       loading: true,
       error: '',
       posts: [],
     };
   },
-  beforeMount() {
-    getAccountStatuses(
-      this.instanceHost,
-      this.accountID,
-      this.numberOfPosts,
-      this.excludeReplies,
-    ).then((data) => {
+  async beforeMount() {
+    const fediAccount = new FediverseAccount(this.fediverseHandle);
+    if (this.fediversePlatform == "mastodon") {
+      this.instanceHost = await fediAccount.getInstanceHost()
+      this.accountID = await getMastodonAccountID(this.instanceHost, this.fediverseHandle)
+
+      getMastodonAccountStatuses(
+        this.instanceHost,
+        this.accountID,
+        this.numberOfPosts,
+        this.excludeReplies,
+      ).then((data) => {
       this.loading = false;
       this.posts = data;
     }).catch((error) => {
       this.loading = false;
       this.error = error.message;
     });
+    } else {
+      console.error(`Fediverse Platform ${this.fediversePlatform} not yet supported.`)
+    }
+
+
   },
 });
 </script>

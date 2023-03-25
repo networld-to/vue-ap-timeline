@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export async function getAccountStatuses(
+export async function getMastodonAccountStatuses(
   instanceHost: string,
   id: string,
   limit: string,
@@ -13,14 +13,25 @@ export async function getAccountStatuses(
   return response.data;
 }
 
-export async function getPost(instanceHost: string, id: string) {
+export async function getMastodonPost(instanceHost: string, id: string) {
   const response = await axios.get(`${instanceHost}/api/v1/statuses/${id}`);
   return response.data;
 }
 
-export async function getThread(instanceHost: string, id: string) {
+export async function getMastodonThread(instanceHost: string, id: string) {
   const response = await axios.get(
     `${instanceHost}/api/v1/statuses/${id}/context`
   );
   return response.data;
+}
+
+// The HTTPS endpoint of the account's ActivityPub outbox
+export async function getMastodonAccountID(
+  instanceHost: string,
+  fediverseHandle: string
+) {
+  const response = await axios.get(
+    `${instanceHost}/api/v1/accounts/lookup?acct=${fediverseHandle}`
+  );
+  return response.data.id;
 }

@@ -36,7 +36,8 @@ app.use(VueApTimeline)
 app.mount('#app')
 ```
 
-Example how to include a dark and light themed timeline side by side.
+Example how to include a dark and light themed timeline side by side, with optional
+the number of posts specified, to show the latest 10 posts.
 
 ```vue
 <template>
@@ -45,15 +46,17 @@ Example how to include a dark and light themed timeline side by side.
       <div class="row">
         <div class="col-6">
           <VueApTimeline
-            instanceHost="https://instance.domain"
-            accountID="12345678901234567890"
+            fediverseHandle="username@instance.tld"
+            fediversePlatform="mastodon"
+            numberOfPosts="10"
             theme="dark"
           ></VueApTimeline>
         </div>
         <div class="col-6">
           <VueApTimeline
-            instanceHost="https://instance.domain"
-            accountID="12345678901234567890"
+            fediverseHandle="username@instance.tld"
+            fediversePlatform="mastodon"
+            numberOfPosts="10"
             theme="light"
           ></VueApTimeline>
         </div>
@@ -63,8 +66,10 @@ Example how to include a dark and light themed timeline side by side.
 </template>
 ```
 
-Currently tested with Mastodon. Should be compatible with other Mastodon API
-compatible projects. More projects will be supported in the future.
+Currently only compatible with Mastodon through CORS issue of ActivityPub endpoints
+with all the tested Fediverse platforms.
+
+`fediverseHandle` and `fediversePlatform` (with value `mastodon`) are required.
 
 ## More Screenshots
 

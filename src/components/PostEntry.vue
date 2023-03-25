@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { getPost } from '../services/ActivityPub';
+import { getMastodonPost } from '../services/Mastodon';
 import { formatContent, formatDate, formatName } from '../services/Utility';
 
 import PostThread from './PostThread.vue';
@@ -85,7 +85,7 @@ export default defineComponent({
 
     if (this.post.in_reply_to_id != null) {
       var that = this;
-      getPost(this.instanceHost, this.post.in_reply_to_id).then(
+      getMastodonPost(this.instanceHost, this.post.in_reply_to_id).then(
         (response: any) => {
           that.parentPost = response;
         }
