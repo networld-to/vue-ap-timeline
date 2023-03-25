@@ -300,7 +300,7 @@ export default defineComponent({
           <a :href="parentPost.url" target="_blank">
             <span v-html="parentPost.content"></span>
           </a>
-          <footer class="blockquote-footer">
+          <footer class="blockquote-footer my-3">
             <img
               :src="parentPost.account.avatar_static"
               class="ap-boost-avatar"
