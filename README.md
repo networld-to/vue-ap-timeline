@@ -3,7 +3,8 @@
 [![NPM](https://nodei.co/npm/@networld-to/vue-ap-timeline.png?compact=true)](https://npmjs.org/package/@networld-to/vue-ap-timeline)
 
 Integrate your Fediverse timeline into your Vue 3 with Bootstrap 5 application.
-Currently, tested with [Mastodon](https://joinmastodon.org).
+Currently, tested with [Mastodon](https://joinmastodon.org) and
+[Akkoma](https://akkoma.social) via Mastodon compatible API calls.
 
 Integrate a dark or light themed timeline into your own website.
 
@@ -77,10 +78,10 @@ Through CORS issues making most, if not all, of the ActivityPub native endpoints
 inaccessible from the browser a fallback to the native platform API is required.
 The following list shows
 
-| Platforms | fediversePlatform value | Supported Via                               | Tested                         |
-| --------- | ----------------------- | ------------------------------------------- | ------------------------------ |
-| Mastodon  | `mastodon`              | Mastodon API                                | Fully                          |
-| Akkoma    | `akkoma`                | Mastodon Compatible API                     | Partially                      |
+| Platforms | fediversePlatform value | Supported Via                               | Tested                                    |
+| --------- | ----------------------- | ------------------------------------------- | ----------------------------------------- |
+| Mastodon  | `mastodon`              | Mastodon API                                | Fully                                     |
+| Akkoma    | `akkoma`                | Mastodon Compatible API                     | Partially                                 |
 | Lemmy     | N/A                     | Not supported, initial webfinger call fails | first fediverse-helper library call fails |
 
 ## More Screenshots
