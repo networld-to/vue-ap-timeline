@@ -72,6 +72,9 @@ with all the tested Fediverse platforms.
 
 `fediverseHandle` and `fediversePlatform` (with value `mastodon` or `akkoma`) are required.
 
+The fediverseHandle can be also an alias, as long as the webfinger call returns
+the actually fediverse handle pointint to a real instance.
+
 ## Supported ActivityPub Platforms
 
 Through CORS issues making most, if not all, of the ActivityPub native endpoints

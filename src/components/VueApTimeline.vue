@@ -56,10 +56,16 @@ export default defineComponent({
         case 'mastodon':
         case 'akkoma':
           mastodonStatusesCompatible = true;
+          var actualFediverseHandle = this.fediverseHandle
+
+          if (this.instanceHost != fediAccount.getHandleHost()) {
+            const webfinger = await fediAccount.getWebfingerInfo()
+            actualFediverseHandle = webfinger.subject.replace(/^acct:/, '')
+          }
 
           this.accountID = await getMastodonAccountID(
             this.instanceHost,
-            this.fediverseHandle
+            actualFediverseHandle
           );
 
           break;
