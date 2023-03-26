@@ -7,6 +7,7 @@ import {
   getMastodonAccountStatuses,
   getMastodonAccountID,
 } from '../services/Mastodon';
+import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -46,35 +47,45 @@ export default defineComponent({
     };
   },
   async beforeMount() {
-    const fediAccount = new FediverseAccount(this.fediverseHandle);
-    if (
-      this.fediversePlatform.toLowerCase() == 'mastodon' ||
-      this.fediversePlatform.toLowerCase() == 'akkoma'
-    ) {
+    try {
+      const fediAccount = new FediverseAccount(this.fediverseHandle);
       this.instanceHost = await fediAccount.getInstanceHost();
-      this.accountID = await getMastodonAccountID(
-        this.instanceHost,
-        this.fediverseHandle
-      );
 
-      getMastodonAccountStatuses(
-        this.instanceHost,
-        this.accountID,
-        this.numberOfPosts,
-        this.excludeReplies
-      )
-        .then((data) => {
-          this.loading = false;
-          this.posts = data;
-        })
-        .catch((error) => {
-          this.loading = false;
-          this.error = error.message;
-        });
-    } else {
-      console.error(
-        `Fediverse Platform ${this.fediversePlatform} not yet supported.`
-      );
+      switch (this.fediversePlatform.toLowerCase()) {
+        case 'mastodon':
+        case 'akkoma':
+          this.accountID = await getMastodonAccountID(
+            this.instanceHost,
+            this.fediverseHandle
+          );
+
+          getMastodonAccountStatuses(
+            this.instanceHost,
+            this.accountID,
+            this.numberOfPosts,
+            this.excludeReplies
+          )
+            .then((data) => {
+              console.log(data);
+              this.loading = false;
+              this.posts = data;
+            })
+            .catch((error) => {
+              this.loading = false;
+              this.error = error.message;
+            });
+          break;
+        case 'friendica':
+          this.error = `'${this.fediversePlatform}' implementation is not complete yet.`;
+          // const accountInfo = await fediAccount.getAccountInfo();
+          // console.log(accountInfo);
+
+          break;
+        default:
+          this.error = `Fediverse platform '${this.fediversePlatform}' not yet supported.`;
+      }
+    } finally {
+      this.loading = false;
     }
   },
 });

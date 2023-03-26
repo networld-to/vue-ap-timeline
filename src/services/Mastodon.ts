@@ -14,7 +14,11 @@ export async function getMastodonAccountStatuses(
 }
 
 export async function getMastodonPost(instanceHost: string, id: string) {
-  const response = await axios.get(`${instanceHost}/api/v1/statuses/${id}`);
+  const response = await axios.get(`${instanceHost}/api/v1/statuses/${id}`, {
+    headers: {
+      Accept: 'application/json',
+    },
+  });
   return response.data;
 }
 
