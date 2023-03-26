@@ -100,13 +100,18 @@ $ tree dist
 dist
 ├── components
 │   ├── PostEntry.vue.d.ts
+│   ├── PostThread.vue.d.ts
+│   ├── Profile.vue.d.ts
 │   └── VueApTimeline.vue.d.ts
 ├── index.d.ts
 ├── services
-│   └── ActivityPub.d.ts
+│   ├── Mastodon.d.ts
+│   └── Utility.d.ts
 ├── style.css
 ├── vue-ap-timeline.es.js
 └── vue-ap-timeline.umd.js
+
+3 directories, 10 files
 ```
 
 ### Testing Locally
