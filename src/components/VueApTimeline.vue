@@ -7,7 +7,6 @@ import {
   getMastodonAccountStatuses,
   getMastodonAccountID,
 } from '../services/Mastodon';
-import axios from 'axios';
 
 export default defineComponent({
   components: {
@@ -21,7 +20,7 @@ export default defineComponent({
     fediversePlatform: {
       type: String,
       required: false,
-      default: 'mastodon'
+      default: 'mastodon',
     },
     numberOfPosts: {
       type: String,
@@ -93,6 +92,8 @@ export default defineComponent({
             this.error = error.message;
           });
       }
+    } catch (error: any) {
+      this.error = error.message;
     } finally {
       this.loading = false;
     }
@@ -109,8 +110,12 @@ export default defineComponent({
     <span id="text">LOADING...</span>
   </div>
 
-  <div class="alert alert-danger" role="alert" v-if="error">
-    Loading the timeline failed. Error:
+  <div
+    class="alert alert-danger"
+    role="alert"
+    v-if="error"
+  >
+    Loading the timeline failed!<br />
     <strong><span v-text="error"></span></strong>
   </div>
 
