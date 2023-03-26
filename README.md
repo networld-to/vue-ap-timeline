@@ -82,7 +82,8 @@ The following list shows
 | --------- | ----------------------- | ------------------------------------------- | ----------------------------------------- |
 | Mastodon  | `mastodon`              | Mastodon API                                | Fully                                     |
 | Akkoma    | `akkoma`                | Mastodon Compatible API                     | Partially                                 |
-| Lemmy     | N/A                     | Not supported, initial webfinger call fails | first fediverse-helper library call fails |
+| Lemmy     | N/A                     | Not supported, initial webfinger call fails | First fediverse-helper library call fails |
+| Friendica | `friendica`             | Not supported                               | Fetching statuses fails                   |
 
 ## More Screenshots
 

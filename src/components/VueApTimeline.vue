@@ -20,7 +20,8 @@ export default defineComponent({
     },
     fediversePlatform: {
       type: String,
-      required: true,
+      required: false,
+      default: 'mastodon'
     },
     numberOfPosts: {
       type: String,
@@ -47,6 +48,7 @@ export default defineComponent({
     };
   },
   async beforeMount() {
+    var mastodonStatusesCompatible = false;
     try {
       const fediAccount = new FediverseAccount(this.fediverseHandle);
       this.instanceHost = await fediAccount.getInstanceHost();
@@ -54,35 +56,42 @@ export default defineComponent({
       switch (this.fediversePlatform.toLowerCase()) {
         case 'mastodon':
         case 'akkoma':
+          mastodonStatusesCompatible = true;
+
           this.accountID = await getMastodonAccountID(
             this.instanceHost,
             this.fediverseHandle
           );
 
-          getMastodonAccountStatuses(
-            this.instanceHost,
-            this.accountID,
-            this.numberOfPosts,
-            this.excludeReplies
-          )
-            .then((data) => {
-              console.log(data);
-              this.loading = false;
-              this.posts = data;
-            })
-            .catch((error) => {
-              this.loading = false;
-              this.error = error.message;
-            });
           break;
         case 'friendica':
+          // XXX: CORS issue on Mastodon compatible status endpoint
+          mastodonStatusesCompatible = true;
+
           this.error = `'${this.fediversePlatform}' implementation is not complete yet.`;
           // const accountInfo = await fediAccount.getAccountInfo();
-          // console.log(accountInfo);
+          // this.accountID = accountInfo['diaspora:guid'];
 
           break;
         default:
           this.error = `Fediverse platform '${this.fediversePlatform}' not yet supported.`;
+      }
+
+      if (mastodonStatusesCompatible) {
+        getMastodonAccountStatuses(
+          this.instanceHost,
+          this.accountID,
+          this.numberOfPosts,
+          this.excludeReplies
+        )
+          .then((data) => {
+            this.loading = false;
+            this.posts = data;
+          })
+          .catch((error) => {
+            this.loading = false;
+            this.error = error.message;
+          });
       }
     } finally {
       this.loading = false;
