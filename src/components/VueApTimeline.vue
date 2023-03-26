@@ -56,11 +56,11 @@ export default defineComponent({
         case 'mastodon':
         case 'akkoma':
           mastodonStatusesCompatible = true;
-          var actualFediverseHandle = this.fediverseHandle
+          var actualFediverseHandle = this.fediverseHandle;
 
           if (this.instanceHost != fediAccount.getHandleHost()) {
-            const webfinger = await fediAccount.getWebfingerInfo()
-            actualFediverseHandle = webfinger.subject.replace(/^acct:/, '')
+            const webfinger = await fediAccount.getWebfingerInfo();
+            actualFediverseHandle = webfinger.subject.replace(/^acct:/, '');
           }
 
           this.accountID = await getMastodonAccountID(
@@ -83,7 +83,7 @@ export default defineComponent({
       }
 
       if (mastodonStatusesCompatible) {
-        getMastodonAccountStatuses(
+        await getMastodonAccountStatuses(
           this.instanceHost,
           this.accountID,
           this.numberOfPosts,
@@ -116,11 +116,7 @@ export default defineComponent({
     <span id="text">LOADING...</span>
   </div>
 
-  <div
-    class="alert alert-danger"
-    role="alert"
-    v-if="error"
-  >
+  <div class="alert alert-danger" role="alert" v-if="error">
     Loading the timeline failed!<br />
     <strong><span v-text="error"></span></strong>
   </div>
