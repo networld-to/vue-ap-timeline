@@ -663,10 +663,6 @@ a {
 .carousel {
   margin-bottom: 25px;
 }
-
-.carousel a img {
-  margin-bottom: 25px;
-}
 /* END: Multimedia */
 
 /* BEGIN: Footer */
