@@ -389,7 +389,7 @@ export default defineComponent({
     <!-- BEGIN: Link Preview Card -->
     <div class="card mb-3" v-if="orgPost && orgPost.card">
       <div class="row g-0">
-        <div class="col-md-4">
+        <div class="col-lg-4 text-center">
           <img
             :src="orgPost.card.image"
             class="img-fluid rounded-start"
@@ -431,20 +431,18 @@ export default defineComponent({
             </g>
           </svg>
         </div>
-        <div class="col-md-8">
+        <div class="col-lg-8">
           <div class="card-body">
             <a :href="orgPost.card.url" class="stretched-link" target="_blank">
-              <h5 class="card-title" v-html="orgPost.card.title"></h5>
+              <h6 class="card-title" v-html="orgPost.card.title"></h6>
               <p
-                class="card-text text-truncate"
+                class="card-text ap-card-description"
                 v-html="orgPost.card.description"
               ></p>
-              <p class="card-text">
                 <small
-                  class="text-muted text-truncate"
+                  class="text-muted ap-card-provider"
                   v-text="orgPost.card.provider_name"
                 ></small>
-              </p>
             </a>
           </div>
         </div>
@@ -698,4 +696,12 @@ a {
   color: var(--post-footer-link);
 }
 /* END: Footer */
+
+p.ap-card-description {
+  font-size: 0.8rem;
+}
+
+small.ap-card-provider {
+  font-size: 0.75rem;
+}
 </style>
