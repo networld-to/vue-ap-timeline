@@ -8,7 +8,7 @@ Currently, tested with [Mastodon](https://joinmastodon.org) and
 
 Integrate a dark or light themed timeline into your own website.
 
-![Dark and light themed timeline](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-and-dark-themed-timelines.png)
+![Dark and light themed timeline](https://raw.githubusercontent.com/networld-to/vue-ap-timeline/main/screenshots/light-and-dark-themed-timelines.png)
 
 ## Getting Started
 
@@ -90,8 +90,8 @@ The following list shows
 
 ## More Screenshots
 
-![Dark themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/dark-themed-timeline-with-profile.png)
-![Light themed timeline with profile](https://media.githubusercontent.com/media/networld-to/vue-ap-timeline/main/screenshots/light-themed-profile-with-profile.png)
+![Dark themed timeline with profile](https://raw.githubusercontent.com/networld-to/vue-ap-timeline/main/screenshots/dark-themed-timeline-with-profile.png)
+![Light themed timeline with profile](https://raw.githubusercontent.com/networld-to/vue-ap-timeline/main/screenshots/light-themed-profile-with-profile.png)
 
 ## Developers
 
