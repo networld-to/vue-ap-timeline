@@ -18,7 +18,7 @@ Add the Vue ActivityPub Timeline to your Vue 3 project.
 $ yarn add @networld-to/vue-ap-timeline
 
 # Add the following dependencies
-$ yarn add bootstrap@5.3.0-alpha1 @popperjs/core
+$ yarn add bootstrap@5.3.8 @popperjs/core
 
 $ yarn install
 $ yarn run dev
@@ -27,14 +27,14 @@ $ yarn run dev
 Add the following to your main.ts file.
 
 ```ts
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap';
-import VueApTimeline from '@networld-to/vue-ap-timeline';
-import '@networld-to/vue-ap-timeline/dist/style.css';
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap";
+import VueApTimeline from "@networld-to/vue-ap-timeline";
+import "@networld-to/vue-ap-timeline/dist/style.css";
 
 var app = createApp(App);
 app.use(VueApTimeline);
-app.mount('#app');
+app.mount("#app");
 ```
 
 Example how to include a dark and light themed timeline side by side, with optional
@@ -101,30 +101,38 @@ The following list shows
 $ yarn build
 $ tree dist
 dist
-├── components
-│   ├── PostEntry.vue.d.ts
-│   ├── PostThread.vue.d.ts
-│   ├── Profile.vue.d.ts
-│   └── VueApTimeline.vue.d.ts
 ├── index.d.ts
-├── services
-│   ├── Mastodon.d.ts
-│   └── Utility.d.ts
-├── style.css
+├── src
+│   ├── components
+│   │   ├── PostEntry.vue.d.ts
+│   │   ├── PostThread.vue.d.ts
+│   │   ├── Profile.vue.d.ts
+│   │   └── VueApTimeline.vue.d.ts
+│   ├── index.d.ts
+│   └── services
+│       ├── Mastodon.d.ts
+│       └── Utility.d.ts
+├── vue-ap-timeline.css
 ├── vue-ap-timeline.es.js
 └── vue-ap-timeline.umd.js
 
-3 directories, 10 files
+4 directories, 11 files
 ```
 
 ### Testing Locally
 
-Prepare your project by adding the following dependencies to your ../vue-ap-timeline-demo
-project. Change the project name and path accordingly.
+An example project is included in the `example/` directory. It links directly to
+the parent library so changes are reflected immediately.
 
 ```bash
-# Execute the following from your test project `vue-ap-timeline-demo`
-$ yarn add bootstrap@5.3.0-alpha1 @popperjs/core
+# 1. Build the library
+$ yarn build
 
-$ yarn install && cd ../vue-ap-timeline && npm link && cd ../vue-ap-timeline-demo && npm link vue-ap-timeline
+# 2. Install example dependencies and start the dev server
+$ cd example
+$ yarn install
+$ yarn dev
 ```
+
+The example app shows dark and light themed timelines side by side. Edit
+`example/src/App.vue` to test different configurations.
